@@ -1,2 +1,2 @@
 
-2026-06-04T19:52:28.298291400 | idCita= | motivo=idCita es obligatorio | payload={"idCita":"","paciente":"Ana Torres","correo":"ana.torres@email.com","especialidad":"Cardiologia","fechaCita":"2026-06-15","sede":"Centro Norte","valor":45.5}
+2026-06-04T20:33:38.950347200 | idCita= | motivo=idCita es obligatorio | payload={"idCita":"","paciente":"Ana Torres","correo":"ana.torres@email.com","especialidad":"Cardiologia","fechaCita":"2026-06-15","sede":"Centro Norte","valor":45.5}

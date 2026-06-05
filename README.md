@@ -1,45 +1,38 @@
 # progreso2-integracion-mora-jostin
 
-## 1. Nombre del estudiante
+## Nombre del estudiante
 Jostin Mora
 
-## 2. Descripcion breve de la solucion
-Aplicacion desarrollada con Spring Boot, Apache Camel y RabbitMQ para registrar solicitudes de cita medica, validar datos, enviar un comando de facturacion, publicar un evento para multiples sistemas, generar un archivo CSV de auditoria y registrar errores de validacion o procesamiento.
+## Descripcion breve de la solucion
+Aplicacion Spring Boot con Apache Camel y RabbitMQ para registrar citas medicas, validar datos, enviar un mensaje a facturacion, publicar eventos para notificaciones y analitica, generar un archivo CSV y registrar errores.
 
-## 3. Tecnologias utilizadas
+## Tecnologias utilizadas
 - Java 17
-- Spring Boot 4
+- Spring Boot
 - Apache Camel 4.19
 - RabbitMQ
 - Docker Compose
 - Maven Wrapper
 - JUnit 5
 
-## 4. Instrucciones para levantar RabbitMQ
+## Instrucciones para levantar RabbitMQ
 ```bash
 docker compose up -d
 ```
 
-RabbitMQ Management:
-- URL: `http://localhost:15672`
-- Usuario: `guest`
-- Clave: `guest`
+Panel RabbitMQ: `http://localhost:15672`
+Usuario: `guest`
+Clave: `guest`
 
-## 5. Instrucciones para ejecutar la aplicacion
+## Instrucciones para ejecutar la aplicacion
 ```bash
-./mvnw spring-boot:run
-```
-
-En Windows PowerShell:
-
-```powershell
 .\mvnw.cmd spring-boot:run
 ```
 
-## 6. Endpoint disponible
-- `POST /api/citas`
+## Endpoint disponible
+`POST /api/citas`
 
-## 7. Ejemplo de request valido
+## Ejemplo de request valido
 ```json
 {
   "idCita": "CITA-1001",
@@ -52,7 +45,7 @@ En Windows PowerShell:
 }
 ```
 
-## 8. Ejemplo de request invalido
+## Ejemplo de request invalido
 ```json
 {
   "idCita": "",
@@ -65,13 +58,13 @@ En Windows PowerShell:
 }
 ```
 
-## 9. Explicacion breve de la integracion
-- Point-to-Point: se aplica cuando la ruta Camel envia un comando de facturacion hacia `billing.queue`. Solo un consumidor debe procesar esa solicitud.
-- Publish/Subscribe: se aplica cuando la ruta Camel publica el evento `CITA_CONFIRMADA` en el exchange `appointments.events`, permitiendo que `notifications.queue` y `analytics.queue` reciban el mismo evento.
-- Transferencia de archivos: se aplica al generar `data/outbox/auditoria-citas.csv`, archivo que integra con el sistema legado de auditoria.
-- Manejo de errores: las solicitudes invalidas o errores de procesamiento se registran en `data/errors/citas-rechazadas.log`.
+## Explicacion breve
+- Point-to-Point: se usa para enviar la solicitud de facturacion a `billing.queue`.
+- Publish/Subscribe: se usa para publicar el evento de cita confirmada en `appointments.events` y distribuirlo a `notifications.queue` y `analytics.queue`.
+- Transferencia de archivos: se usa para generar `data/outbox/auditoria-citas.csv`.
+- Manejo de errores: se usa `data/errors/citas-rechazadas.log`.
 
-## 10. Evidencia esperada para verificar el funcionamiento
+## Evidencia esperada
 - API ejecutandose correctamente.
 - Request valido enviado por Postman, curl o Swagger.
 - Respuesta exitosa `202 Accepted`.
